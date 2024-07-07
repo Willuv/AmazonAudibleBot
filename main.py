@@ -1,11 +1,19 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 import pandas as pd
 
+#create an options instance
+options = Options()
+
 # disable auto close
-options = webdriver.ChromeOptions()
-options.add_experimental_option("detach", True)
+# options = webdriver.ChromeOptions()
+# options.add_experimental_option("detach", True)
+
+#set headless mode to true and set the window size
+options.add_argument('--headless')
+options.add_argument('window-size=1920x1080')
 
 
 #chromedriver currently doesn't have matching version for chrome
@@ -19,7 +27,7 @@ driver = webdriver.Chrome(service=service,options=options)
 
 # Open the website
 driver.get(web)
-driver.maximize_window()
+# driver.maximize_window()
 
 #find where all the books are stored
 container = driver.find_element(By.CLASS_NAME, 'adbl-impression-container')
@@ -40,5 +48,6 @@ for product in products:
 
 driver.quit
 
+#create the DataFrame
 df_books = pd.DataFrame({'title': book_title, 'author': book_author, 'length':book_length})
 df_books.to_csv('books.csv', index=False)
