@@ -1,0 +1,1 @@
+Amazon Web scraping bot made using Selenium to grab and store the information of audiobooks on the browsing page of the website. The bot uses pandas to create a .CSV file which will store all the information of the books.
